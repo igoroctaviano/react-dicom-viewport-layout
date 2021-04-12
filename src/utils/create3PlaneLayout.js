@@ -1,3 +1,5 @@
+import { ViewportLayout } from '../classes';
+
 /**
  * Populate a given ViewportLayout instance with boxes for a regular 3-plane
  * layout;

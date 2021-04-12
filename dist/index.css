@@ -1,6 +1,6 @@
 /* add css module styles here (optional) */
 
-._3ybTi {
+._styles-module__test__3ybTi {
   margin: 2em;
   padding: 0.5em;
   border: 2px solid #000;
@@ -8,7 +8,7 @@
   text-align: center;
 }
 
-._mEMv8 {
+._LayoutButton__layout-button__mEMv8 {
   box-sizing: border-box;
   display: block;
   position: relative;
@@ -22,18 +22,14 @@
   color: yellow;
 }
 
-._mEMv8:hover {
-  --rdvl-tool-color: white;
-}
-
-._mEMv8 ._1yLOa {
+._LayoutButton__layout-button__mEMv8 ._LayoutButton__layout-button-label__1yLOa {
   display: block;
   font-size: 11px;
   margin: 4px 0 0 0;
   text-align: center;
 }
 
-._mEMv8 ._1voin {
+._LayoutButton__layout-button__mEMv8 ._LayoutButton__layout-button-icon__1voin {
   box-sizing: border-box;
   display: block;
   position: relative;
@@ -45,7 +41,7 @@
   border: 1px solid yellow;
 }
 
-._mEMv8 ._1voin ._25vwM {
+._LayoutButton__layout-button__mEMv8 ._LayoutButton__layout-button-icon__1voin ._LayoutButton__layout-button-icon-box__25vwM {
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -58,11 +54,11 @@
   background-color: transparent;
 }
 
-._mEMv8 ._1voin ._25vwM._2AVWM {
-  background-color: var(--rdvl-tool-active-color);
+._LayoutButton__layout-button__mEMv8 ._LayoutButton__layout-button-icon__1voin ._LayoutButton__layout-button-icon-box__25vwM._LayoutButton__highlighted__2AVWM {
+  background-color: yellow;
 }
 
-._3XCxE {
+._LayoutSelector__layout-selector__3XCxE {
   align-items: center;
   color: yellow;
   cursor: pointer;
@@ -73,7 +69,7 @@
   padding: 6px 6px 0 6px;
 }
 
-._3XCxE ._1ocPo {
+._LayoutSelector__layout-selector__3XCxE ._LayoutSelector__layout-selector-options__1ocPo {
   display: none;
   z-index: 1070;
   position: absolute;
@@ -84,10 +80,10 @@
   padding: 10px;
 }
 
-._3XCxE:hover ._1ocPo {
+._LayoutSelector__layout-selector__3XCxE:hover ._LayoutSelector__layout-selector-options__1ocPo {
   display: flex;
 }
 
-._3XCxE ._1ocPo ._2Kazb {
+._LayoutSelector__layout-selector__3XCxE ._LayoutSelector__layout-selector-options__1ocPo ._LayoutSelector__layout-button__2Kazb {
   margin: 0 1px;
 }

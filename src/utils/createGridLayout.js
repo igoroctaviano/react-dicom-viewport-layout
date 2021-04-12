@@ -1,3 +1,5 @@
+import { ViewportLayout } from '../classes';
+
 /**
  * Populate a given ViewportLayout instance with boxes for a grid layout with
  * the desired number of rows and columns

@@ -4,7 +4,7 @@ var React = require('react');
 var React__default = _interopDefault(React);
 var classnames = _interopDefault(require('classnames'));
 
-var styles = {"test":"_3ybTi"};
+var styles = {"test":"_styles-module__test__3ybTi"};
 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -1198,7 +1198,7 @@ function _assertThisInitialized(self) {
   return self;
 }
 
-var ViewportLayout$1 = /*#__PURE__*/function (_Array) {
+var ViewportLayout = /*#__PURE__*/function (_Array) {
   _inheritsLoose(ViewportLayout, _Array);
 
   function ViewportLayout(title, id) {
@@ -1341,7 +1341,7 @@ var ViewportGridLayout = /*#__PURE__*/function (_ViewportLayout) {
   };
 
   return ViewportGridLayout;
-}(ViewportLayout$1);
+}(ViewportLayout);
 
 var _subscriptions = Symbol('subscriptions');
 
@@ -1435,12 +1435,15 @@ var LayoutButton = function LayoutButton(_ref) {
   }, layout.title));
 };
 
+var noop = function noop() {};
+
 LayoutButton.defaultProps = {
   showLabel: true,
-  highlightedIndices: []
+  highlightedIndices: [],
+  onClick: noop
 };
 LayoutButton.propTypes = {
-  layout: propTypes.instanceOf(ViewportLayout$1).isRequired,
+  layout: propTypes.instanceOf(ViewportLayout).isRequired,
   onClick: propTypes.func,
   showLabel: propTypes.bool,
   highlightedIndices: propTypes.arrayOf(propTypes.number)
@@ -1505,7 +1508,7 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
 
     var oldLayout = this[_layout];
 
-    if (newLayout instanceof ViewportLayout$1 && newLayout !== oldLayout) {
+    if (newLayout instanceof ViewportLayout && newLayout !== oldLayout) {
       this[_layout] = newLayout;
       this.resetContent(!discard);
       this.publish(LayoutServiceEvents.LayoutChanged, newLayout, oldLayout);
@@ -1604,7 +1607,7 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
     var defaultViewportLayouts = LayoutService[_defaultViewportLayouts];
 
     if (!defaultViewportLayouts) {
-      defaultViewportLayouts = Object.freeze([new ViewportGridLayout(1, 1), new ViewportGridLayout(1, 2), new ViewportGridLayout(1, 3), new ViewportGridLayout(2, 1), new ViewportGridLayout(2, 2), new ViewportGridLayout(2, 3), new ViewportGridLayout(3, 3), create3PlaneLayout(new ViewportLayout$1('3-Plane', '3-plane'))]);
+      defaultViewportLayouts = Object.freeze([new ViewportGridLayout(1, 1), new ViewportGridLayout(1, 2), new ViewportGridLayout(1, 3), new ViewportGridLayout(2, 1), new ViewportGridLayout(2, 2), new ViewportGridLayout(2, 3), new ViewportGridLayout(3, 3), create3PlaneLayout(new ViewportLayout('3-Plane', '3-plane'))]);
       LayoutService[_defaultViewportLayouts] = defaultViewportLayouts;
     }
 
@@ -1702,7 +1705,7 @@ exports.LayoutSelector = LayoutSelector;
 exports.LayoutService = LayoutService;
 exports.PubSub = PubSub;
 exports.ViewportGridLayout = ViewportGridLayout;
-exports.ViewportLayout = ViewportLayout$1;
+exports.ViewportLayout = ViewportLayout;
 exports.create3PlaneLayout = create3PlaneLayout;
 exports.createGridLayout = createGridLayout;
 exports.getStyleFromSpatialPosition = getStyleFromSpatialPosition;

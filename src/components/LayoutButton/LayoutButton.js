@@ -35,9 +35,12 @@ const LayoutButton = ({ layout, onClick, showLabel, highlightedIndices }) => {
   )
 }
 
+const noop = () => {};
+
 LayoutButton.defaultProps = {
   showLabel: true,
-  highlightedIndices: []
+  highlightedIndices: [],
+  onClick: noop
 }
 
 LayoutButton.propTypes = {
