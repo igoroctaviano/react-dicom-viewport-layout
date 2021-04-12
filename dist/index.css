@@ -1,0 +1,93 @@
+/* add css module styles here (optional) */
+
+._3ybTi {
+  margin: 2em;
+  padding: 0.5em;
+  border: 2px solid #000;
+  font-size: 2em;
+  text-align: center;
+}
+
+._mEMv8 {
+  box-sizing: border-box;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 47px;
+  height: auto;
+  padding: 5px 0 0 0;
+  margin: 0;
+  cursor: pointer;
+  background-color: transparent;
+  color: yellow;
+}
+
+._mEMv8:hover {
+  --rdvl-tool-color: white;
+}
+
+._mEMv8 ._1yLOa {
+  display: block;
+  font-size: 11px;
+  margin: 4px 0 0 0;
+  text-align: center;
+}
+
+._mEMv8 ._1voin {
+  box-sizing: border-box;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  margin: 0 auto;
+  border: 1px solid yellow;
+}
+
+._mEMv8 ._1voin ._25vwM {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  border: 1px solid yellow;
+  background-color: transparent;
+}
+
+._mEMv8 ._1voin ._25vwM._2AVWM {
+  background-color: var(--rdvl-tool-active-color);
+}
+
+._3XCxE {
+  align-items: center;
+  color: yellow;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  justify-content: center;
+  padding: 6px 6px 0 6px;
+}
+
+._3XCxE ._1ocPo {
+  display: none;
+  z-index: 1070;
+  position: absolute;
+  top: 62px;
+  background-color: black;
+  border: 1px solid rgb(177, 179, 179);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+._3XCxE:hover ._1ocPo {
+  display: flex;
+}
+
+._3XCxE ._1ocPo ._2Kazb {
+  margin: 0 1px;
+}
