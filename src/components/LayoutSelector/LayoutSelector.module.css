@@ -1,29 +1,27 @@
 .layoutSelector {
+  display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
   color: darkblue;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 1;
-  justify-content: center;
-  padding: 6px 6px 0 6px;
+  padding: 10px;
 }
 
-.layoutSelector .layoutSelectorOptions {
+.layoutSelector .layoutOptions {
   display: none;
-  z-index: 1070;
   position: absolute;
-  top: 60px;
+  padding-top: 60px;
   background-color: darkslategrey;
   border: 1px solid rgb(177, 179, 179);
   border-radius: 5px;
   padding: 10px;
 }
 
-.layoutSelector:hover .layoutSelectorOptions {
+.layoutSelector:hover .layoutOptions {
   display: flex;
 }
 
-.layoutSelector .layoutSelectorOptions .layoutButton {
+.layoutSelector .layoutOptions .layoutButton {
   margin: 0 1px;
 }

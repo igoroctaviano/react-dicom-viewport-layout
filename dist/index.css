@@ -1,6 +1,6 @@
 /* add css module styles here (optional) */
 
-._3ybTi {
+._styles-module__test__3ybTi {
   margin: 2em;
   padding: 0.5em;
   border: 2px solid #000;
@@ -8,28 +8,28 @@
   text-align: center;
 }
 
-._2k5Bq {
+._LayoutButton-module__layoutButton__2k5Bq {
   box-sizing: border-box;
   display: block;
   position: relative;
   overflow: hidden;
-  width: 47px;
+  width: 60px;
   height: auto;
-  padding: 5px 0 0 0;
+  padding: 5px;
   margin: 0;
   cursor: pointer;
   background-color: transparent;
   color: darkblue;
 }
 
-._2k5Bq ._1r8A7 {
+._LayoutButton-module__layoutButton__2k5Bq ._LayoutButton-module__layoutButtonLabel__1r8A7 {
   display: block;
-  font-size: 11px;
-  margin: 4px 0 0 0;
+  font-size: 12px;
+  margin-top: 5px;
   text-align: center;
 }
 
-._2k5Bq ._q_pwF {
+._LayoutButton-module__layoutButton__2k5Bq ._LayoutButton-module__layoutButtonIcon__q_pwF {
   box-sizing: border-box;
   display: block;
   position: relative;
@@ -41,7 +41,7 @@
   border: 1px solid darkblue;
 }
 
-._2k5Bq ._q_pwF ._295-0 {
+._LayoutButton-module__layoutButton__2k5Bq ._LayoutButton-module__layoutButtonIcon__q_pwF ._LayoutButton-module__layoutButtonIconBox__295-0 {
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -54,36 +54,71 @@
   background-color: transparent;
 }
 
-._2k5Bq ._q_pwF ._295-0._1xVxU {
+._LayoutButton-module__layoutButton__2k5Bq ._LayoutButton-module__layoutButtonIcon__q_pwF ._LayoutButton-module__layoutButtonIconBox__295-0._LayoutButton-module__highlighted__1xVxU {
   background-color: darkblue;
 }
 
-._2uJOA {
+._LayoutSelector-module__layoutSelector__2uJOA {
+  display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
   color: darkblue;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 1;
-  justify-content: center;
-  padding: 6px 6px 0 6px;
+  padding: 10px;
 }
 
-._2uJOA ._2FT-X {
+._LayoutSelector-module__layoutSelector__2uJOA ._LayoutSelector-module__layoutOptions__23Lkt {
   display: none;
-  z-index: 1070;
   position: absolute;
-  top: 60px;
+  padding-top: 60px;
   background-color: darkslategrey;
   border: 1px solid rgb(177, 179, 179);
   border-radius: 5px;
   padding: 10px;
 }
 
-._2uJOA:hover ._2FT-X {
+._LayoutSelector-module__layoutSelector__2uJOA:hover ._LayoutSelector-module__layoutOptions__23Lkt {
   display: flex;
 }
 
-._2uJOA ._2FT-X ._3e-aB {
+._LayoutSelector-module__layoutSelector__2uJOA ._LayoutSelector-module__layoutOptions__23Lkt ._LayoutSelector-module__layoutButton__3e-aB {
   margin: 0 1px;
+}
+
+._DisplayEnvironment-module__displayEnvironment__1z13W {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+._DisplayEnvironment-module__displayEnvironmentWrapper__1ky4k {
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  width: auto;
+  height: auto;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+}
+
+._DisplayEnvironment-module__viewportBox__1La0r {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  overflow: hidden;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
 }

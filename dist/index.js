@@ -4,7 +4,7 @@ var React = require('react');
 var React__default = _interopDefault(React);
 var classnames = _interopDefault(require('classnames'));
 
-var styles = {"test":"_3ybTi"};
+var styles = {"test":"_styles-module__test__3ybTi"};
 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -1318,6 +1318,23 @@ function getSuitableGridLayout(count) {
   });
 }
 
+var layoutToViewports = function layoutToViewports(layout) {
+  var viewports = [];
+
+  if (layout instanceof ViewportLayout) {
+    layout.forEach(function (spatialPosition) {
+      if (ViewportLayout.isValidEntry(spatialPosition)) {
+        viewports.push({
+          spatialPosition: spatialPosition,
+          plugin: 'cornerstone'
+        });
+      }
+    });
+  }
+
+  return viewports;
+};
+
 var ViewportGridLayout = /*#__PURE__*/function (_ViewportLayout) {
   _inheritsLoose(ViewportGridLayout, _ViewportLayout);
 
@@ -1405,14 +1422,18 @@ var PubSub = /*#__PURE__*/function () {
   return PubSub;
 }();
 
-var styles$1 = {"layoutButton":"_2k5Bq","layoutButtonLabel":"_1r8A7","layoutButtonIcon":"_q_pwF","layoutButtonIconBox":"_295-0","highlighted":"_1xVxU"};
+var styles$1 = {"layoutButton":"_LayoutButton-module__layoutButton__2k5Bq","layoutButtonLabel":"_LayoutButton-module__layoutButtonLabel__1r8A7","layoutButtonIcon":"_LayoutButton-module__layoutButtonIcon__q_pwF","layoutButtonIconBox":"_LayoutButton-module__layoutButtonIconBox__295-0","highlighted":"_LayoutButton-module__highlighted__1xVxU"};
 
 var LayoutButton = function LayoutButton(_ref) {
   var layout = _ref.layout,
       onClick = _ref.onClick,
       showLabel = _ref.showLabel,
       highlightedIndices = _ref.highlightedIndices;
-  var onClickHandler = onClick(layout);
+
+  var onClickHandler = function onClickHandler() {
+    return onClick(layout);
+  };
+
   var boxes = [];
 
   for (var i = 0; i < layout.length; ++i) {
@@ -1653,47 +1674,103 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
 LayoutService.Modes = LayoutServiceModes;
 LayoutService.Events = LayoutServiceEvents;
 
-var styles$2 = {"layoutSelector":"_2uJOA","layoutSelectorOptions":"_2FT-X","layoutButton":"_3e-aB"};
+var styles$2 = {"layoutSelector":"_LayoutSelector-module__layoutSelector__2uJOA","layoutOptions":"_LayoutSelector-module__layoutOptions__23Lkt","layoutButton":"_LayoutSelector-module__layoutButton__3e-aB"};
 
 var LayoutSelector = function LayoutSelector() {
   var _useState = React.useState(null),
-      selectedLayout = _useState[0],
-      setSelectedLayout = _useState[1];
+      layout = _useState[0],
+      setLayout = _useState[1];
 
   var layoutOptions = LayoutService.getDefaultViewportLayouts();
-  var onClick = React.useCallback(function (layout) {
-    var layoutService = LayoutService.getSharedInstance();
-    layoutService.setLayout(layout);
-  }, []);
   var options = React.useMemo(function () {
     var buttons = [];
+
+    var onClickHandler = function onClickHandler(layout) {
+      var layoutService = LayoutService.getSharedInstance();
+      layoutService.setLayout(layout);
+      debugger;
+    };
 
     for (var i = 0; i < layoutOptions.length; ++i) {
       buttons.push( /*#__PURE__*/React__default.createElement(LayoutButton, {
         layout: layoutOptions[i],
         key: i,
-        onClick: onClick
+        onClick: onClickHandler
       }));
     }
 
     return buttons;
-  }, [layoutOptions, onClick]);
+  }, [layoutOptions]);
   React.useEffect(function () {
     var LayoutChanged = LayoutService.Events.LayoutChanged;
     var layoutService = LayoutService.getSharedInstance();
-    layoutService.subscribe(LayoutChanged, setSelectedLayout);
-    setSelectedLayout(layoutService.layout);
+    layoutService.subscribe(LayoutChanged, setLayout);
+    setLayout(layoutService.layout);
     return function () {
-      layoutService.unsubscribe(LayoutChanged, setSelectedLayout);
+      layoutService.unsubscribe(LayoutChanged, setLayout);
     };
   }, []);
   return /*#__PURE__*/React__default.createElement("div", {
     className: styles$2.layoutSelector
-  }, selectedLayout && /*#__PURE__*/React__default.createElement(LayoutButton, {
-    layout: selectedLayout
+  }, layout && /*#__PURE__*/React__default.createElement(LayoutButton, {
+    layout: layout
   }), options.length > 0 && /*#__PURE__*/React__default.createElement("div", {
-    className: styles$2.layoutSelectorOptions
+    className: styles$2.layoutOptions
   }, options));
+};
+
+var styles$3 = {"displayEnvironment":"_DisplayEnvironment-module__displayEnvironment__1z13W","displayEnvironmentWrapper":"_DisplayEnvironment-module__displayEnvironmentWrapper__1ky4k","viewportBox":"_DisplayEnvironment-module__viewportBox__1La0r"};
+
+var LayoutChanged = LayoutServiceEvents.LayoutChanged;
+
+var DisplayEnvironment = function DisplayEnvironment() {
+  var _useState = React.useState([]),
+      viewports = _useState[0],
+      setViewports = _useState[1];
+
+  React.useEffect(function () {
+    var layoutService = LayoutService.getSharedInstance();
+    layoutService.setDefaultLayoutById('grid-2x2', true);
+    var viewports = layoutToViewports(layoutService.layout);
+    setViewports(viewports);
+
+    var onLayoutChangeHandler = function onLayoutChangeHandler(layout) {
+      var viewports = layoutToViewports(layout);
+      setViewports(viewports);
+    };
+
+    layoutService.subscribe(LayoutChanged, onLayoutChangeHandler);
+    return function () {
+      layoutService.unsubscribe(LayoutChanged, onLayoutChangeHandler);
+    };
+  }, []);
+
+  var getViewportBoxes = function getViewportBoxes() {
+    return viewports.map(function (_ref, viewportIndex) {
+      var spatialPosition = _ref.spatialPosition;
+      var viewportId = "empty-" + viewportIndex;
+      var style = getStyleFromSpatialPosition(spatialPosition);
+
+      var getViewport = function getViewport(plugin) {
+        return /*#__PURE__*/React__default.createElement("div", null, "Test Viewport");
+      };
+
+      var ViewportComponent = getViewport();
+      return /*#__PURE__*/React__default.createElement("div", {
+        className: styles$3.viewportBox,
+        style: style,
+        "data-viewport-id": viewportId,
+        key: viewportId
+      }, ViewportComponent);
+    });
+  };
+
+  var ViewportBoxes = React.useMemo(getViewportBoxes, [viewports]);
+  return /*#__PURE__*/React__default.createElement("div", {
+    className: styles$3.displayEnvironmentWrapper
+  }, /*#__PURE__*/React__default.createElement(LayoutSelector, null), /*#__PURE__*/React__default.createElement("div", {
+    className: styles$3.displayEnvironment
+  }, ViewportBoxes));
 };
 
 var ExampleComponent = function ExampleComponent(_ref) {
@@ -1703,6 +1780,7 @@ var ExampleComponent = function ExampleComponent(_ref) {
   }, "Example Component: ", text);
 };
 
+exports.DisplayEnvironment = DisplayEnvironment;
 exports.ExampleComponent = ExampleComponent;
 exports.LayoutButton = LayoutButton;
 exports.LayoutSelector = LayoutSelector;
@@ -1714,4 +1792,5 @@ exports.create3PlaneLayout = create3PlaneLayout;
 exports.createGridLayout = createGridLayout;
 exports.getStyleFromSpatialPosition = getStyleFromSpatialPosition;
 exports.getSuitableGridLayout = getSuitableGridLayout;
+exports.layoutToViewports = layoutToViewports;
 //# sourceMappingURL=index.js.map

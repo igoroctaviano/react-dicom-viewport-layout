@@ -8,7 +8,7 @@ import { getStyleFromSpatialPosition } from '../../utils'
 import styles from './LayoutButton.module.css'
 
 const LayoutButton = ({ layout, onClick, showLabel, highlightedIndices }) => {
-  const onClickHandler = onClick(layout)
+  const onClickHandler = () => onClick(layout)
 
   const boxes = []
   for (let i = 0; i < layout.length; ++i) {
