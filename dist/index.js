@@ -1474,26 +1474,14 @@ LayoutButton.propTypes = {
 
 var DEFAULT_LAYOUT = 'grid-1x1';
 
-var _sharedInstance = Symbol('sharedInstance');
-
 var _defaultViewportLayouts = Symbol('defaultViewportLayouts');
-
-var _mode = Symbol('mode');
 
 var _layout = Symbol('layout');
 
-var _content = Symbol('content');
-
 var _selected = Symbol('selected');
 
-var LayoutServiceModes = Object.freeze({
-  Normal: Symbol('Normal'),
-  MaximumViewportSpace: Symbol('MaximumViewportSpace')
-});
 var LayoutServiceEvents = Object.freeze({
-  ModeChanged: 'ModeChanged',
   LayoutChanged: 'LayoutChanged',
-  ContentChanged: 'ContentChanged',
   SelectionChanged: 'SelectionChanged'
 });
 
@@ -1504,36 +1492,21 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
     var _this;
 
     _this = _PubSub.call(this) || this;
-    _this[_mode] = LayoutServiceModes.Normal;
     _this[_layout] = null;
-    _this[_content] = null;
     _this[_selected] = 0;
 
-    _this.setLayout(LayoutService.getDefaultViewportLayoutById(DEFAULT_LAYOUT));
+    _this.setLayout(_this.getDefaultViewportLayoutById(DEFAULT_LAYOUT));
 
     return _this;
   }
 
   var _proto = LayoutService.prototype;
 
-  _proto.toggleViewerMode = function toggleViewerMode() {
-    var modes = Object.values(LayoutServiceModes);
-    var index = (modes.indexOf(this[_mode]) + 1) % modes.length;
-    this[_mode] = modes[index];
-    this.publish(LayoutServiceEvents.ModeChanged, this[_mode]);
-    return this[_mode];
-  };
-
-  _proto.setLayout = function setLayout(newLayout, discard) {
-    if (discard === void 0) {
-      discard = false;
-    }
-
+  _proto.setLayout = function setLayout(newLayout) {
     var oldLayout = this[_layout];
 
     if (newLayout instanceof ViewportLayout && newLayout !== oldLayout) {
       this[_layout] = newLayout;
-      this.resetContent(!discard);
       this.publish(LayoutServiceEvents.LayoutChanged, newLayout, oldLayout);
       return true;
     }
@@ -1541,41 +1514,9 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
     return false;
   };
 
-  _proto.setDefaultLayoutById = function setDefaultLayoutById(id, discard) {
-    if (discard === void 0) {
-      discard = false;
-    }
-
-    return this.setLayout(LayoutService.getDefaultViewportLayoutById(id), discard);
-  };
-
-  _proto.resetContent = function resetContent(preserve) {
-    if (preserve === void 0) {
-      preserve = false;
-    }
-
-    var length = this[_layout].length;
-    var oldContent = this[_content];
-    var oldContentLength = oldContent !== null ? oldContent.length : 0;
-    var shouldCopy = preserve && oldContentLength > 0;
-    var newContent = new Array(length);
-
-    for (var i = 0; i < length; ++i) {
-      newContent[i] = shouldCopy && i < oldContentLength ? oldContent[i] : null;
-    }
-
-    this[_content] = newContent;
-    this.setSelected(Math.min(this.selected, length - 1));
-  };
-
-  _proto.setContent = function setContent(index, data) {
-    var content = this[_content];
-
-    if (content instanceof Array && (index |= 0) >= 0 && index < content.length) {
-      var oldData = content[index];
-      content[index] = data;
-      this.publish(LayoutServiceEvents.ContentChanged, index, data, oldData);
-    }
+  _proto.setDefaultLayoutById = function setDefaultLayoutById(id) {
+    var layout = this.getDefaultViewportLayoutById(id);
+    return this.setLayout(layout);
   };
 
   _proto.getContent = function getContent(index) {
@@ -1588,23 +1529,6 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
     return null;
   };
 
-  _proto.getViewportIndicesWithContent = function getViewportIndicesWithContent() {
-    var indices = [];
-    var content = this[_content];
-
-    if (content instanceof Array) {
-      var length = content.length;
-
-      for (var i = 0; i < length; ++i) {
-        if (content[i] !== null) {
-          indices.push(i);
-        }
-      }
-    }
-
-    return indices;
-  };
-
   _proto.setSelected = function setSelected(index) {
     var length = this[_layout].length;
     var previous = this[_selected];
@@ -1615,18 +1539,7 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
     }
   };
 
-  LayoutService.getSharedInstance = function getSharedInstance() {
-    var sharedInstance = LayoutService[_sharedInstance];
-
-    if (!(sharedInstance instanceof LayoutService)) {
-      sharedInstance = new LayoutService();
-      LayoutService[_sharedInstance] = sharedInstance;
-    }
-
-    return sharedInstance;
-  };
-
-  LayoutService.getDefaultViewportLayouts = function getDefaultViewportLayouts() {
+  _proto.getDefaultViewportLayouts = function getDefaultViewportLayouts() {
     var defaultViewportLayouts = LayoutService[_defaultViewportLayouts];
 
     if (!defaultViewportLayouts) {
@@ -1637,8 +1550,8 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
     return defaultViewportLayouts;
   };
 
-  LayoutService.getDefaultViewportLayoutById = function getDefaultViewportLayoutById(id) {
-    var layouts = LayoutService.getDefaultViewportLayouts();
+  _proto.getDefaultViewportLayoutById = function getDefaultViewportLayoutById(id) {
+    var layouts = this.getDefaultViewportLayouts();
 
     for (var i = 0; i < layouts.length; ++i) {
       var layout = layouts[i];
@@ -1652,11 +1565,6 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
   };
 
   _createClass(LayoutService, [{
-    key: "mode",
-    get: function get() {
-      return this[_mode];
-    }
-  }, {
     key: "layout",
     get: function get() {
       return this[_layout];
@@ -1671,8 +1579,8 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
   return LayoutService;
 }(PubSub);
 
-LayoutService.Modes = LayoutServiceModes;
 LayoutService.Events = LayoutServiceEvents;
+var LayoutService$1 = new LayoutService();
 
 var styles$2 = {"layoutSelector":"_LayoutSelector-module__layoutSelector__2uJOA","layoutOptions":"_LayoutSelector-module__layoutOptions__23Lkt","layoutButton":"_LayoutSelector-module__layoutButton__3e-aB"};
 
@@ -1681,14 +1589,12 @@ var LayoutSelector = function LayoutSelector() {
       layout = _useState[0],
       setLayout = _useState[1];
 
-  var layoutOptions = LayoutService.getDefaultViewportLayouts();
+  var layoutOptions = LayoutService$1.getDefaultViewportLayouts();
   var options = React.useMemo(function () {
     var buttons = [];
 
     var onClickHandler = function onClickHandler(layout) {
-      var layoutService = LayoutService.getSharedInstance();
-      layoutService.setLayout(layout);
-      debugger;
+      LayoutService$1.setLayout(layout);
     };
 
     for (var i = 0; i < layoutOptions.length; ++i) {
@@ -1702,12 +1608,11 @@ var LayoutSelector = function LayoutSelector() {
     return buttons;
   }, [layoutOptions]);
   React.useEffect(function () {
-    var LayoutChanged = LayoutService.Events.LayoutChanged;
-    var layoutService = LayoutService.getSharedInstance();
-    layoutService.subscribe(LayoutChanged, setLayout);
-    setLayout(layoutService.layout);
+    var LayoutChanged = LayoutServiceEvents.LayoutChanged;
+    LayoutService$1.subscribe(LayoutChanged, setLayout);
+    setLayout(LayoutService$1.layout);
     return function () {
-      layoutService.unsubscribe(LayoutChanged, setLayout);
+      LayoutService$1.unsubscribe(LayoutChanged, setLayout);
     };
   }, []);
   return /*#__PURE__*/React__default.createElement("div", {
@@ -1729,9 +1634,8 @@ var DisplayEnvironment = function DisplayEnvironment() {
       setViewports = _useState[1];
 
   React.useEffect(function () {
-    var layoutService = LayoutService.getSharedInstance();
-    layoutService.setDefaultLayoutById('grid-2x2', true);
-    var viewports = layoutToViewports(layoutService.layout);
+    LayoutService$1.setDefaultLayoutById('grid-2x2', true);
+    var viewports = layoutToViewports(LayoutService$1.layout);
     setViewports(viewports);
 
     var onLayoutChangeHandler = function onLayoutChangeHandler(layout) {
@@ -1739,9 +1643,9 @@ var DisplayEnvironment = function DisplayEnvironment() {
       setViewports(viewports);
     };
 
-    layoutService.subscribe(LayoutChanged, onLayoutChangeHandler);
+    LayoutService$1.subscribe(LayoutChanged, onLayoutChangeHandler);
     return function () {
-      layoutService.unsubscribe(LayoutChanged, onLayoutChangeHandler);
+      LayoutService$1.unsubscribe(LayoutChanged, onLayoutChangeHandler);
     };
   }, []);
 
@@ -1784,7 +1688,7 @@ exports.DisplayEnvironment = DisplayEnvironment;
 exports.ExampleComponent = ExampleComponent;
 exports.LayoutButton = LayoutButton;
 exports.LayoutSelector = LayoutSelector;
-exports.LayoutService = LayoutService;
+exports.LayoutService = LayoutService$1;
 exports.PubSub = PubSub;
 exports.ViewportGridLayout = ViewportGridLayout;
 exports.ViewportLayout = ViewportLayout;

@@ -1328,40 +1328,23 @@ LayoutButton.propTypes = {
 
 const DEFAULT_LAYOUT = 'grid-1x1';
 
-const _sharedInstance = Symbol('sharedInstance');
-
 const _defaultViewportLayouts = Symbol('defaultViewportLayouts');
-
-const _mode = Symbol('mode');
 
 const _layout = Symbol('layout');
 
-const _content = Symbol('content');
-
 const _selected = Symbol('selected');
 
-const LayoutServiceModes = Object.freeze({
-  Normal: Symbol('Normal'),
-  MaximumViewportSpace: Symbol('MaximumViewportSpace')
-});
 const LayoutServiceEvents = Object.freeze({
-  ModeChanged: 'ModeChanged',
   LayoutChanged: 'LayoutChanged',
-  ContentChanged: 'ContentChanged',
   SelectionChanged: 'SelectionChanged'
 });
+
 class LayoutService extends PubSub {
   constructor() {
     super();
-    this[_mode] = LayoutServiceModes.Normal;
     this[_layout] = null;
-    this[_content] = null;
     this[_selected] = 0;
-    this.setLayout(LayoutService.getDefaultViewportLayoutById(DEFAULT_LAYOUT));
-  }
-
-  get mode() {
-    return this[_mode];
+    this.setLayout(this.getDefaultViewportLayoutById(DEFAULT_LAYOUT));
   }
 
   get layout() {
@@ -1372,20 +1355,11 @@ class LayoutService extends PubSub {
     return this[_selected];
   }
 
-  toggleViewerMode() {
-    const modes = Object.values(LayoutServiceModes);
-    const index = (modes.indexOf(this[_mode]) + 1) % modes.length;
-    this[_mode] = modes[index];
-    this.publish(LayoutServiceEvents.ModeChanged, this[_mode]);
-    return this[_mode];
-  }
-
-  setLayout(newLayout, discard = false) {
+  setLayout(newLayout) {
     const oldLayout = this[_layout];
 
     if (newLayout instanceof ViewportLayout && newLayout !== oldLayout) {
       this[_layout] = newLayout;
-      this.resetContent(!discard);
       this.publish(LayoutServiceEvents.LayoutChanged, newLayout, oldLayout);
       return true;
     }
@@ -1393,35 +1367,9 @@ class LayoutService extends PubSub {
     return false;
   }
 
-  setDefaultLayoutById(id, discard = false) {
-    return this.setLayout(LayoutService.getDefaultViewportLayoutById(id), discard);
-  }
-
-  resetContent(preserve = false) {
-    const {
-      length
-    } = this[_layout];
-    const oldContent = this[_content];
-    const oldContentLength = oldContent !== null ? oldContent.length : 0;
-    const shouldCopy = preserve && oldContentLength > 0;
-    const newContent = new Array(length);
-
-    for (let i = 0; i < length; ++i) {
-      newContent[i] = shouldCopy && i < oldContentLength ? oldContent[i] : null;
-    }
-
-    this[_content] = newContent;
-    this.setSelected(Math.min(this.selected, length - 1));
-  }
-
-  setContent(index, data) {
-    const content = this[_content];
-
-    if (content instanceof Array && (index |= 0) >= 0 && index < content.length) {
-      const oldData = content[index];
-      content[index] = data;
-      this.publish(LayoutServiceEvents.ContentChanged, index, data, oldData);
-    }
+  setDefaultLayoutById(id) {
+    const layout = this.getDefaultViewportLayoutById(id);
+    return this.setLayout(layout);
   }
 
   getContent(index) {
@@ -1432,25 +1380,6 @@ class LayoutService extends PubSub {
     }
 
     return null;
-  }
-
-  getViewportIndicesWithContent() {
-    const indices = [];
-    const content = this[_content];
-
-    if (content instanceof Array) {
-      const {
-        length
-      } = content;
-
-      for (let i = 0; i < length; ++i) {
-        if (content[i] !== null) {
-          indices.push(i);
-        }
-      }
-    }
-
-    return indices;
   }
 
   setSelected(index) {
@@ -1465,18 +1394,7 @@ class LayoutService extends PubSub {
     }
   }
 
-  static getSharedInstance() {
-    let sharedInstance = LayoutService[_sharedInstance];
-
-    if (!(sharedInstance instanceof LayoutService)) {
-      sharedInstance = new LayoutService();
-      LayoutService[_sharedInstance] = sharedInstance;
-    }
-
-    return sharedInstance;
-  }
-
-  static getDefaultViewportLayouts() {
+  getDefaultViewportLayouts() {
     let defaultViewportLayouts = LayoutService[_defaultViewportLayouts];
 
     if (!defaultViewportLayouts) {
@@ -1487,8 +1405,8 @@ class LayoutService extends PubSub {
     return defaultViewportLayouts;
   }
 
-  static getDefaultViewportLayoutById(id) {
-    const layouts = LayoutService.getDefaultViewportLayouts();
+  getDefaultViewportLayoutById(id) {
+    const layouts = this.getDefaultViewportLayouts();
 
     for (let i = 0; i < layouts.length; ++i) {
       const layout = layouts[i];
@@ -1502,21 +1420,20 @@ class LayoutService extends PubSub {
   }
 
 }
-LayoutService.Modes = LayoutServiceModes;
+
 LayoutService.Events = LayoutServiceEvents;
+var LayoutService$1 = new LayoutService();
 
 var styles$2 = {"layoutSelector":"_LayoutSelector-module__layoutSelector__2uJOA","layoutOptions":"_LayoutSelector-module__layoutOptions__23Lkt","layoutButton":"_LayoutSelector-module__layoutButton__3e-aB"};
 
 const LayoutSelector = () => {
   const [layout, setLayout] = useState(null);
-  const layoutOptions = LayoutService.getDefaultViewportLayouts();
+  const layoutOptions = LayoutService$1.getDefaultViewportLayouts();
   const options = useMemo(() => {
     const buttons = [];
 
     const onClickHandler = layout => {
-      const layoutService = LayoutService.getSharedInstance();
-      layoutService.setLayout(layout);
-      debugger;
+      LayoutService$1.setLayout(layout);
     };
 
     for (let i = 0; i < layoutOptions.length; ++i) {
@@ -1532,12 +1449,11 @@ const LayoutSelector = () => {
   useEffect(() => {
     const {
       LayoutChanged
-    } = LayoutService.Events;
-    const layoutService = LayoutService.getSharedInstance();
-    layoutService.subscribe(LayoutChanged, setLayout);
-    setLayout(layoutService.layout);
+    } = LayoutServiceEvents;
+    LayoutService$1.subscribe(LayoutChanged, setLayout);
+    setLayout(LayoutService$1.layout);
     return () => {
-      layoutService.unsubscribe(LayoutChanged, setLayout);
+      LayoutService$1.unsubscribe(LayoutChanged, setLayout);
     };
   }, []);
   return /*#__PURE__*/React.createElement("div", {
@@ -1558,9 +1474,8 @@ const {
 const DisplayEnvironment = () => {
   const [viewports, setViewports] = useState([]);
   useEffect(() => {
-    const layoutService = LayoutService.getSharedInstance();
-    layoutService.setDefaultLayoutById('grid-2x2', true);
-    const viewports = layoutToViewports(layoutService.layout);
+    LayoutService$1.setDefaultLayoutById('grid-2x2', true);
+    const viewports = layoutToViewports(LayoutService$1.layout);
     setViewports(viewports);
 
     const onLayoutChangeHandler = layout => {
@@ -1568,9 +1483,9 @@ const DisplayEnvironment = () => {
       setViewports(viewports);
     };
 
-    layoutService.subscribe(LayoutChanged, onLayoutChangeHandler);
+    LayoutService$1.subscribe(LayoutChanged, onLayoutChangeHandler);
     return () => {
-      layoutService.unsubscribe(LayoutChanged, onLayoutChangeHandler);
+      LayoutService$1.unsubscribe(LayoutChanged, onLayoutChangeHandler);
     };
   }, []);
 
@@ -1608,5 +1523,5 @@ const ExampleComponent = ({
   }, "Example Component: ", text);
 };
 
-export { DisplayEnvironment, ExampleComponent, LayoutButton, LayoutSelector, LayoutService, PubSub, ViewportGridLayout, ViewportLayout, create3PlaneLayout, createGridLayout, getStyleFromSpatialPosition, getSuitableGridLayout, layoutToViewports };
+export { DisplayEnvironment, ExampleComponent, LayoutButton, LayoutSelector, LayoutService$1 as LayoutService, PubSub, ViewportGridLayout, ViewportLayout, create3PlaneLayout, createGridLayout, getStyleFromSpatialPosition, getSuitableGridLayout, layoutToViewports };
 //# sourceMappingURL=index.modern.js.map

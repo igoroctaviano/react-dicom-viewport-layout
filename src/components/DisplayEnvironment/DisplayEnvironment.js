@@ -13,10 +13,9 @@ const DisplayEnvironment = () => {
   const [viewports, setViewports] = useState([])
 
   useEffect(() => {
-    const layoutService = LayoutService.getSharedInstance()
-    layoutService.setDefaultLayoutById('grid-2x2', true)
+    LayoutService.setDefaultLayoutById('grid-2x2', true)
 
-    const viewports = layoutToViewports(layoutService.layout)
+    const viewports = layoutToViewports(LayoutService.layout)
     setViewports(viewports)
 
     const onLayoutChangeHandler = (layout) => {
@@ -24,10 +23,10 @@ const DisplayEnvironment = () => {
       setViewports(viewports)
     }
 
-    layoutService.subscribe(LayoutChanged, onLayoutChangeHandler)
+    LayoutService.subscribe(LayoutChanged, onLayoutChangeHandler)
 
     return () => {
-      layoutService.unsubscribe(LayoutChanged, onLayoutChangeHandler)
+      LayoutService.unsubscribe(LayoutChanged, onLayoutChangeHandler)
     }
   }, [])
 

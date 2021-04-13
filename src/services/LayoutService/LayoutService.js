@@ -6,12 +6,11 @@ import { create3PlaneLayout } from '../../utils'
  */
 
 const DEFAULT_LAYOUT = 'grid-1x1'
-const _sharedInstance = Symbol('sharedInstance')
 const _defaultViewportLayouts = Symbol('defaultViewportLayouts')
 const _layout = Symbol('layout')
 const _selected = Symbol('selected')
 
-export const LayoutServiceEvents = Object.freeze({
+const LayoutServiceEvents = Object.freeze({
   LayoutChanged: 'LayoutChanged',
   SelectionChanged: 'SelectionChanged'
 })
@@ -22,12 +21,12 @@ export const LayoutServiceEvents = Object.freeze({
  * @classdesc Maintain general layout state
  * @extends PubSub Provides subscribable events
  */
-export default class LayoutService extends PubSub {
+class LayoutService extends PubSub {
   constructor() {
     super()
     this[_layout] = null
     this[_selected] = 0
-    this.setLayout(LayoutService.getDefaultViewportLayoutById(DEFAULT_LAYOUT))
+    this.setLayout(this.getDefaultViewportLayoutById(DEFAULT_LAYOUT))
   }
 
   /**
@@ -70,7 +69,7 @@ export default class LayoutService extends PubSub {
    *  false otherwise
    */
   setDefaultLayoutById(id) {
-    const layout = LayoutService.getDefaultViewportLayoutById(id)
+    const layout = this.getDefaultViewportLayoutById(id)
     return this.setLayout(layout)
   }
 
@@ -108,33 +107,12 @@ export default class LayoutService extends PubSub {
     }
   }
 
-  /*
-   * Static
-   */
-
-  static Events = LayoutServiceEvents
-
-  /**
-   * Retrieve a reference to a globally shared instance of the LayoutService
-   * class
-   * @returns {LayoutService} A reference to a globally shared instance of
-   *  the LayoutService class
-   */
-  static getSharedInstance() {
-    let sharedInstance = LayoutService[_sharedInstance]
-    if (!(sharedInstance instanceof LayoutService)) {
-      sharedInstance = new LayoutService()
-      LayoutService[_sharedInstance] = sharedInstance
-    }
-    return sharedInstance
-  }
-
   /**
    * Retrieve a list of default viewport layouts
    * @returns {Array<ViewportLayout>} A reference to a globally shared list of
    *  default layouts
    */
-  static getDefaultViewportLayouts() {
+  getDefaultViewportLayouts() {
     let defaultViewportLayouts = LayoutService[_defaultViewportLayouts]
     if (!defaultViewportLayouts) {
       defaultViewportLayouts = Object.freeze([
@@ -156,8 +134,8 @@ export default class LayoutService extends PubSub {
    * Retrieves a default viewport layout by ID
    * @returns {ViewportLayout} The viewport layout with the given ID or null
    */
-  static getDefaultViewportLayoutById(id) {
-    const layouts = LayoutService.getDefaultViewportLayouts()
+  getDefaultViewportLayoutById(id) {
+    const layouts = this.getDefaultViewportLayouts()
     for (let i = 0; i < layouts.length; ++i) {
       const layout = layouts[i]
       if (layout.id === id) {
@@ -166,4 +144,14 @@ export default class LayoutService extends PubSub {
     }
     return null
   }
+
+  /*
+   * Static
+   */
+
+  static Events = LayoutServiceEvents
 }
+
+export { LayoutServiceEvents, LayoutService as LayoutServiceClass }
+
+export default new LayoutService()

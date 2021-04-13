@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import LayoutButton from '../LayoutButton'
 import { LayoutService } from '../../services'
+import { LayoutServiceEvents } from '../../services/LayoutService/LayoutService'
 
 import styles from './LayoutSelector.module.css'
 
@@ -13,8 +14,7 @@ const LayoutSelector = () => {
     const buttons = []
 
     const onClickHandler = (layout) => {
-      const layoutService = LayoutService.getSharedInstance()
-      layoutService.setLayout(layout)
+      LayoutService.setLayout(layout)
     }
 
     for (let i = 0; i < layoutOptions.length; ++i) {
@@ -30,12 +30,11 @@ const LayoutSelector = () => {
   }, [layoutOptions])
 
   useEffect(() => {
-    const { LayoutChanged } = LayoutService.Events
-    const layoutService = LayoutService.getSharedInstance()
-    layoutService.subscribe(LayoutChanged, setLayout)
-    setLayout(layoutService.layout)
+    const { LayoutChanged } = LayoutServiceEvents
+    LayoutService.subscribe(LayoutChanged, setLayout)
+    setLayout(LayoutService.layout)
     return () => {
-      layoutService.unsubscribe(LayoutChanged, setLayout)
+      LayoutService.unsubscribe(LayoutChanged, setLayout)
     }
   }, [])
 
