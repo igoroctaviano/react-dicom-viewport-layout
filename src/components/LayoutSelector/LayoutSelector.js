@@ -15,7 +15,6 @@ const LayoutSelector = () => {
     const onClickHandler = (layout) => {
       const layoutService = LayoutService.getSharedInstance()
       layoutService.setLayout(layout)
-      debugger
     }
 
     for (let i = 0; i < layoutOptions.length; ++i) {
