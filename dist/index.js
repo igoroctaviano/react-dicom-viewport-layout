@@ -4,7 +4,7 @@ var React = require('react');
 var React__default = _interopDefault(React);
 var classnames = _interopDefault(require('classnames'));
 
-var styles = {"test":"_styles-module__test__3ybTi"};
+var styles = {"test":"_3ybTi"};
 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -1405,6 +1405,8 @@ var PubSub = /*#__PURE__*/function () {
   return PubSub;
 }();
 
+var styles$1 = {"layoutButton":"_2k5Bq","layoutButtonLabel":"_1r8A7","layoutButtonIcon":"_q_pwF","layoutButtonIconBox":"_295-0","highlighted":"_1xVxU"};
+
 var LayoutButton = function LayoutButton(_ref) {
   var layout = _ref.layout,
       onClick = _ref.onClick,
@@ -1418,7 +1420,7 @@ var LayoutButton = function LayoutButton(_ref) {
 
     if (spatialPosition) {
       boxes.push( /*#__PURE__*/React__default.createElement("div", {
-        className: classnames('layout-button-icon-box', highlightedIndices.includes(i) ? 'highlighted' : ''),
+        className: classnames(styles$1.layoutButtonIconBox, highlightedIndices.includes(i) ? styles$1.highlighted : ''),
         style: getStyleFromSpatialPosition(spatialPosition),
         key: i
       }));
@@ -1426,12 +1428,12 @@ var LayoutButton = function LayoutButton(_ref) {
   }
 
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "layout-button",
+    className: styles$1.layoutButton,
     onClick: onClickHandler
   }, /*#__PURE__*/React__default.createElement("div", {
-    className: "layout-button-icon"
+    className: styles$1.layoutButtonIcon
   }, boxes), showLabel && /*#__PURE__*/React__default.createElement("span", {
-    className: "layout-button-label"
+    className: styles$1.layoutButtonLabel
   }, layout.title));
 };
 
@@ -1651,6 +1653,8 @@ var LayoutService = /*#__PURE__*/function (_PubSub) {
 LayoutService.Modes = LayoutServiceModes;
 LayoutService.Events = LayoutServiceEvents;
 
+var styles$2 = {"layoutSelector":"_2uJOA","layoutSelectorOptions":"_2FT-X","layoutButton":"_3e-aB"};
+
 var LayoutSelector = function LayoutSelector() {
   var _useState = React.useState(null),
       selectedLayout = _useState[0],
@@ -1684,11 +1688,11 @@ var LayoutSelector = function LayoutSelector() {
     };
   }, []);
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "layout-selector"
+    className: styles$2.layoutSelector
   }, selectedLayout && /*#__PURE__*/React__default.createElement(LayoutButton, {
     layout: selectedLayout
   }), options.length > 0 && /*#__PURE__*/React__default.createElement("div", {
-    className: "layout-selector-options"
+    className: styles$2.layoutSelectorOptions
   }, options));
 };
 

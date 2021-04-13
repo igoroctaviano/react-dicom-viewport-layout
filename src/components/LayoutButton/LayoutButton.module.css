@@ -1,4 +1,4 @@
-.layout-button {
+.layoutButton {
   box-sizing: border-box;
   display: block;
   position: relative;
@@ -9,17 +9,17 @@
   margin: 0;
   cursor: pointer;
   background-color: transparent;
-  color: yellow;
+  color: darkblue;
 }
 
-.layout-button .layout-button-label {
+.layoutButton .layoutButtonLabel {
   display: block;
   font-size: 11px;
   margin: 4px 0 0 0;
   text-align: center;
 }
 
-.layout-button .layout-button-icon {
+.layoutButton .layoutButtonIcon {
   box-sizing: border-box;
   display: block;
   position: relative;
@@ -28,10 +28,10 @@
   height: 26px;
   padding: 0;
   margin: 0 auto;
-  border: 1px solid yellow;
+  border: 1px solid darkblue;
 }
 
-.layout-button .layout-button-icon .layout-button-icon-box {
+.layoutButton .layoutButtonIcon .layoutButtonIconBox {
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -40,10 +40,10 @@
   height: auto;
   padding: 0;
   margin: 0;
-  border: 1px solid yellow;
+  border: 1px solid darkblue;
   background-color: transparent;
 }
 
-.layout-button .layout-button-icon .layout-button-icon-box.highlighted {
-  background-color: yellow;
+.layoutButton .layoutButtonIcon .layoutButtonIconBox.highlighted {
+  background-color: darkblue;
 }

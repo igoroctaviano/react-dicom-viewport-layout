@@ -1,6 +1,6 @@
 /* add css module styles here (optional) */
 
-._styles-module__test__3ybTi {
+._3ybTi {
   margin: 2em;
   padding: 0.5em;
   border: 2px solid #000;
@@ -8,7 +8,7 @@
   text-align: center;
 }
 
-._LayoutButton__layout-button__mEMv8 {
+._2k5Bq {
   box-sizing: border-box;
   display: block;
   position: relative;
@@ -19,17 +19,17 @@
   margin: 0;
   cursor: pointer;
   background-color: transparent;
-  color: yellow;
+  color: darkblue;
 }
 
-._LayoutButton__layout-button__mEMv8 ._LayoutButton__layout-button-label__1yLOa {
+._2k5Bq ._1r8A7 {
   display: block;
   font-size: 11px;
   margin: 4px 0 0 0;
   text-align: center;
 }
 
-._LayoutButton__layout-button__mEMv8 ._LayoutButton__layout-button-icon__1voin {
+._2k5Bq ._q_pwF {
   box-sizing: border-box;
   display: block;
   position: relative;
@@ -38,10 +38,10 @@
   height: 26px;
   padding: 0;
   margin: 0 auto;
-  border: 1px solid yellow;
+  border: 1px solid darkblue;
 }
 
-._LayoutButton__layout-button__mEMv8 ._LayoutButton__layout-button-icon__1voin ._LayoutButton__layout-button-icon-box__25vwM {
+._2k5Bq ._q_pwF ._295-0 {
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -50,17 +50,17 @@
   height: auto;
   padding: 0;
   margin: 0;
-  border: 1px solid yellow;
+  border: 1px solid darkblue;
   background-color: transparent;
 }
 
-._LayoutButton__layout-button__mEMv8 ._LayoutButton__layout-button-icon__1voin ._LayoutButton__layout-button-icon-box__25vwM._LayoutButton__highlighted__2AVWM {
-  background-color: yellow;
+._2k5Bq ._q_pwF ._295-0._1xVxU {
+  background-color: darkblue;
 }
 
-._LayoutSelector__layout-selector__3XCxE {
+._2uJOA {
   align-items: center;
-  color: yellow;
+  color: darkblue;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -69,21 +69,21 @@
   padding: 6px 6px 0 6px;
 }
 
-._LayoutSelector__layout-selector__3XCxE ._LayoutSelector__layout-selector-options__1ocPo {
+._2uJOA ._2FT-X {
   display: none;
   z-index: 1070;
   position: absolute;
-  top: 62px;
-  background-color: black;
+  top: 60px;
+  background-color: darkslategrey;
   border: 1px solid rgb(177, 179, 179);
   border-radius: 5px;
   padding: 10px;
 }
 
-._LayoutSelector__layout-selector__3XCxE:hover ._LayoutSelector__layout-selector-options__1ocPo {
+._2uJOA:hover ._2FT-X {
   display: flex;
 }
 
-._LayoutSelector__layout-selector__3XCxE ._LayoutSelector__layout-selector-options__1ocPo ._LayoutSelector__layout-button__2Kazb {
+._2uJOA ._2FT-X ._3e-aB {
   margin: 0 1px;
 }

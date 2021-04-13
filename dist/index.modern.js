@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import classnames from 'classnames';
 
-var styles = {"test":"_styles-module__test__3ybTi"};
+var styles = {"test":"_3ybTi"};
 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -1080,10 +1080,129 @@ if (process.env.NODE_ENV !== 'production') {
 }
 });
 
-class ViewportLayout extends Array {
-  constructor(title, id) {
-    super(0);
-    Object.defineProperties(this, {
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+
+  _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _construct(Parent, args, Class) {
+  if (_isNativeReflectConstruct()) {
+    _construct = Reflect.construct;
+  } else {
+    _construct = function _construct(Parent, args, Class) {
+      var a = [null];
+      a.push.apply(a, args);
+      var Constructor = Function.bind.apply(Parent, a);
+      var instance = new Constructor();
+      if (Class) _setPrototypeOf(instance, Class.prototype);
+      return instance;
+    };
+  }
+
+  return _construct.apply(null, arguments);
+}
+
+function _isNativeFunction(fn) {
+  return Function.toString.call(fn).indexOf("[native code]") !== -1;
+}
+
+function _wrapNativeSuper(Class) {
+  var _cache = typeof Map === "function" ? new Map() : undefined;
+
+  _wrapNativeSuper = function _wrapNativeSuper(Class) {
+    if (Class === null || !_isNativeFunction(Class)) return Class;
+
+    if (typeof Class !== "function") {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    if (typeof _cache !== "undefined") {
+      if (_cache.has(Class)) return _cache.get(Class);
+
+      _cache.set(Class, Wrapper);
+    }
+
+    function Wrapper() {
+      return _construct(Class, arguments, _getPrototypeOf(this).constructor);
+    }
+
+    Wrapper.prototype = Object.create(Class.prototype, {
+      constructor: {
+        value: Wrapper,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    return _setPrototypeOf(Wrapper, Class);
+  };
+
+  return _wrapNativeSuper(Class);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+var ViewportLayout = /*#__PURE__*/function (_Array) {
+  _inheritsLoose(ViewportLayout, _Array);
+
+  function ViewportLayout(title, id) {
+    var _this;
+
+    _this = _Array.call(this, 0) || this;
+    Object.defineProperties(_assertThisInitialized(_this), {
       title: {
         value: title
       },
@@ -1091,10 +1210,13 @@ class ViewportLayout extends Array {
         value: id
       }
     });
+    return _this;
   }
 
-  add(x, y, z, w) {
-    const entry = new Float64Array(4);
+  var _proto = ViewportLayout.prototype;
+
+  _proto.add = function add(x, y, z, w) {
+    var entry = new Float64Array(4);
     entry[0] = isNaN(x) ? 0.0 : x;
     entry[1] = isNaN(y) ? 0.0 : y;
     entry[2] = isNaN(z) ? 0.0 : z;
@@ -1105,35 +1227,41 @@ class ViewportLayout extends Array {
     }
 
     return this.length;
-  }
+  };
 
-  get(i) {
+  _proto.get = function get(i) {
     if (i >= 0 && i < this.length) {
-      const entry = this[i];
+      var entry = this[i];
 
       if (ViewportLayout.isValidEntry(entry)) {
         return entry;
       }
     }
-  }
+  };
 
-  static isValidEntry(subject) {
+  ViewportLayout.isValidEntry = function isValidEntry(subject) {
     return subject instanceof Float64Array && subject.length === 4 && subject[0] >= 0.0 && subject[2] <= 1.0 && subject[2] > subject[0] && subject[1] <= 1.0 && subject[3] >= 0.0 && subject[3] < subject[1];
-  }
+  };
 
-}
+  return ViewportLayout;
+}( /*#__PURE__*/_wrapNativeSuper(Array));
 
 function getStyleFromSpatialPosition(spatialPosition) {
   if (spatialPosition instanceof Float64Array && spatialPosition.length === 4) {
-    const [left, top, right, bottom] = Array.prototype.map.call(spatialPosition, (s, i) => {
+    var _Array$prototype$map$ = Array.prototype.map.call(spatialPosition, function (s, i) {
       if (i === 1 || i === 2) s = 1.0 - s;
       return (s * 100.0).toFixed(4) + '%';
-    });
+    }),
+        left = _Array$prototype$map$[0],
+        top = _Array$prototype$map$[1],
+        right = _Array$prototype$map$[2],
+        bottom = _Array$prototype$map$[3];
+
     return Object.freeze({
-      left,
-      top,
-      right,
-      bottom
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom
     });
   }
 
@@ -1141,17 +1269,17 @@ function getStyleFromSpatialPosition(spatialPosition) {
 }
 
 function createGridLayout(layout, rows, columns) {
-  const count = rows * columns;
+  var count = rows * columns;
 
   if (layout instanceof ViewportLayout && count > 0) {
-    const xStep = 1 / columns;
-    const yStep = 1 / rows;
+    var xStep = 1 / columns;
+    var yStep = 1 / rows;
 
-    for (let i = 0; i < count; ++i) {
-      const xOff = i % columns;
-      const yOff = rows - (i - xOff) / columns;
-      const xOrig = xOff * xStep;
-      const yOrig = yOff * yStep;
+    for (var i = 0; i < count; ++i) {
+      var xOff = i % columns;
+      var yOff = rows - (i - xOff) / columns;
+      var xOrig = xOff * xStep;
+      var yOrig = yOff * yStep;
       layout.add(xOrig, yOrig, xOrig + xStep, yOrig - yStep);
     }
 
@@ -1173,8 +1301,8 @@ function create3PlaneLayout(layout) {
 }
 
 function getSuitableGridLayout(count) {
-  let rows = 1;
-  let columns = 1;
+  var rows = 1;
+  var columns = 1;
 
   if ((count |= 0) >= 2) {
     columns = Math.ceil(Math.sqrt(count));
@@ -1182,41 +1310,49 @@ function getSuitableGridLayout(count) {
   }
 
   return Object.freeze({
-    rows,
-    columns
+    rows: rows,
+    columns: columns
   });
 }
 
-class ViewportGridLayout extends ViewportLayout {
-  constructor(rows, columns) {
-    super(`Grid ${rows}x${columns}`, `grid-${rows}x${columns}`);
-    this.rows = Math.max(1, rows | 0);
-    this.columns = Math.max(1, columns | 0);
-    createGridLayout(this, rows, columns);
-    Object.freeze(this);
+var ViewportGridLayout = /*#__PURE__*/function (_ViewportLayout) {
+  _inheritsLoose(ViewportGridLayout, _ViewportLayout);
+
+  function ViewportGridLayout(rows, columns) {
+    var _this;
+
+    _this = _ViewportLayout.call(this, "Grid " + rows + "x" + columns, "grid-" + rows + "x" + columns) || this;
+    _this.rows = Math.max(1, rows | 0);
+    _this.columns = Math.max(1, columns | 0);
+    createGridLayout(_assertThisInitialized(_this), rows, columns);
+    Object.freeze(_assertThisInitialized(_this));
+    return _this;
   }
 
-  static for(count) {
-    const {
-      rows,
-      columns
-    } = getSuitableGridLayout(count);
+  ViewportGridLayout["for"] = function _for(count) {
+    var _getSuitableGridLayou = getSuitableGridLayout(count),
+        rows = _getSuitableGridLayou.rows,
+        columns = _getSuitableGridLayou.columns;
+
     return new ViewportGridLayout(rows, columns);
-  }
+  };
 
-}
+  return ViewportGridLayout;
+}(ViewportLayout);
 
-const _subscriptions = Symbol('subscriptions');
+var _subscriptions = Symbol('subscriptions');
 
-const _lastSubscriptionId = Symbol('lastSubscriptionId');
+var _lastSubscriptionId = Symbol('lastSubscriptionId');
 
-class PubSub {
-  constructor() {
+var PubSub = /*#__PURE__*/function () {
+  function PubSub() {
     this[_subscriptions] = {};
     this[_lastSubscriptionId] = 0;
   }
 
-  subscribe(eventName, callback) {
+  var _proto = PubSub.prototype;
+
+  _proto.subscribe = function subscribe(eventName, callback) {
     if (typeof callback !== 'function') {
       throw new Error('The provided callback must be a function');
     }
@@ -1225,57 +1361,63 @@ class PubSub {
       this[_subscriptions][eventName] = {};
     }
 
-    const subscriptionId = `sub${this[_lastSubscriptionId]++}`;
+    var subscriptionId = "sub" + this[_lastSubscriptionId]++;
     this[_subscriptions][eventName][subscriptionId] = callback;
-  }
+  };
 
-  unsubscribe(eventName, callback) {
-    const callbacks = this[_subscriptions][eventName] || {};
+  _proto.unsubscribe = function unsubscribe(eventName, callback) {
+    var callbacks = this[_subscriptions][eventName] || {};
 
-    for (let subscriptionId in callbacks) {
+    for (var subscriptionId in callbacks) {
       if (!callback) {
         delete callbacks[subscriptionId];
       } else if (callbacks[subscriptionId] === callback) {
         delete callbacks[subscriptionId];
       }
     }
-  }
+  };
 
-  publish(eventName, ...payload) {
-    const callbacks = this[_subscriptions][eventName] || {};
+  _proto.publish = function publish(eventName) {
+    var callbacks = this[_subscriptions][eventName] || {};
 
-    for (let subscriptionId in callbacks) {
-      callbacks[subscriptionId](...payload);
+    for (var _len = arguments.length, payload = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      payload[_key - 1] = arguments[_key];
     }
-  }
 
-  unsubscribeFromAll() {
-    for (let eventName in this[_subscriptions]) {
-      const callbacks = this[_subscriptions][eventName];
+    for (var subscriptionId in callbacks) {
+      callbacks[subscriptionId].apply(callbacks, payload);
+    }
+  };
 
-      for (let subscriptionId in callbacks) {
+  _proto.unsubscribeFromAll = function unsubscribeFromAll() {
+    for (var eventName in this[_subscriptions]) {
+      var callbacks = this[_subscriptions][eventName];
+
+      for (var subscriptionId in callbacks) {
         delete callbacks[subscriptionId];
       }
     }
-  }
+  };
 
-}
+  return PubSub;
+}();
 
-const LayoutButton = ({
-  layout,
-  onClick,
-  showLabel,
-  highlightedIndices
-}) => {
-  const onClickHandler = onClick(layout);
-  const boxes = [];
+var styles$1 = {"layoutButton":"_2k5Bq","layoutButtonLabel":"_1r8A7","layoutButtonIcon":"_q_pwF","layoutButtonIconBox":"_295-0","highlighted":"_1xVxU"};
 
-  for (let i = 0; i < layout.length; ++i) {
-    const spatialPosition = layout.get(i);
+var LayoutButton = function LayoutButton(_ref) {
+  var layout = _ref.layout,
+      onClick = _ref.onClick,
+      showLabel = _ref.showLabel,
+      highlightedIndices = _ref.highlightedIndices;
+  var onClickHandler = onClick(layout);
+  var boxes = [];
+
+  for (var i = 0; i < layout.length; ++i) {
+    var spatialPosition = layout.get(i);
 
     if (spatialPosition) {
       boxes.push( /*#__PURE__*/React.createElement("div", {
-        className: classnames('layout-button-icon-box', highlightedIndices.includes(i) ? 'highlighted' : ''),
+        className: classnames(styles$1.layoutButtonIconBox, highlightedIndices.includes(i) ? styles$1.highlighted : ''),
         style: getStyleFromSpatialPosition(spatialPosition),
         key: i
       }));
@@ -1283,16 +1425,16 @@ const LayoutButton = ({
   }
 
   return /*#__PURE__*/React.createElement("div", {
-    className: "layout-button",
+    className: styles$1.layoutButton,
     onClick: onClickHandler
   }, /*#__PURE__*/React.createElement("div", {
-    className: "layout-button-icon"
+    className: styles$1.layoutButtonIcon
   }, boxes), showLabel && /*#__PURE__*/React.createElement("span", {
-    className: "layout-button-label"
+    className: styles$1.layoutButtonLabel
   }, layout.title));
 };
 
-const noop = () => {};
+var noop = function noop() {};
 
 LayoutButton.defaultProps = {
   showLabel: true,
@@ -1306,62 +1448,64 @@ LayoutButton.propTypes = {
   highlightedIndices: propTypes.arrayOf(propTypes.number)
 };
 
-const DEFAULT_LAYOUT = 'grid-1x1';
+var DEFAULT_LAYOUT = 'grid-1x1';
 
-const _sharedInstance = Symbol('sharedInstance');
+var _sharedInstance = Symbol('sharedInstance');
 
-const _defaultViewportLayouts = Symbol('defaultViewportLayouts');
+var _defaultViewportLayouts = Symbol('defaultViewportLayouts');
 
-const _mode = Symbol('mode');
+var _mode = Symbol('mode');
 
-const _layout = Symbol('layout');
+var _layout = Symbol('layout');
 
-const _content = Symbol('content');
+var _content = Symbol('content');
 
-const _selected = Symbol('selected');
+var _selected = Symbol('selected');
 
-const LayoutServiceModes = Object.freeze({
+var LayoutServiceModes = Object.freeze({
   Normal: Symbol('Normal'),
   MaximumViewportSpace: Symbol('MaximumViewportSpace')
 });
-const LayoutServiceEvents = Object.freeze({
+var LayoutServiceEvents = Object.freeze({
   ModeChanged: 'ModeChanged',
   LayoutChanged: 'LayoutChanged',
   ContentChanged: 'ContentChanged',
   SelectionChanged: 'SelectionChanged'
 });
-class LayoutService extends PubSub {
-  constructor() {
-    super();
-    this[_mode] = LayoutServiceModes.Normal;
-    this[_layout] = null;
-    this[_content] = null;
-    this[_selected] = 0;
-    this.setLayout(LayoutService.getDefaultViewportLayoutById(DEFAULT_LAYOUT));
+
+var LayoutService = /*#__PURE__*/function (_PubSub) {
+  _inheritsLoose(LayoutService, _PubSub);
+
+  function LayoutService() {
+    var _this;
+
+    _this = _PubSub.call(this) || this;
+    _this[_mode] = LayoutServiceModes.Normal;
+    _this[_layout] = null;
+    _this[_content] = null;
+    _this[_selected] = 0;
+
+    _this.setLayout(LayoutService.getDefaultViewportLayoutById(DEFAULT_LAYOUT));
+
+    return _this;
   }
 
-  get mode() {
-    return this[_mode];
-  }
+  var _proto = LayoutService.prototype;
 
-  get layout() {
-    return this[_layout];
-  }
-
-  get selected() {
-    return this[_selected];
-  }
-
-  toggleViewerMode() {
-    const modes = Object.values(LayoutServiceModes);
-    const index = (modes.indexOf(this[_mode]) + 1) % modes.length;
+  _proto.toggleViewerMode = function toggleViewerMode() {
+    var modes = Object.values(LayoutServiceModes);
+    var index = (modes.indexOf(this[_mode]) + 1) % modes.length;
     this[_mode] = modes[index];
     this.publish(LayoutServiceEvents.ModeChanged, this[_mode]);
     return this[_mode];
-  }
+  };
 
-  setLayout(newLayout, discard = false) {
-    const oldLayout = this[_layout];
+  _proto.setLayout = function setLayout(newLayout, discard) {
+    if (discard === void 0) {
+      discard = false;
+    }
+
+    var oldLayout = this[_layout];
 
     if (newLayout instanceof ViewportLayout && newLayout !== oldLayout) {
       this[_layout] = newLayout;
@@ -1371,59 +1515,63 @@ class LayoutService extends PubSub {
     }
 
     return false;
-  }
+  };
 
-  setDefaultLayoutById(id, discard = false) {
+  _proto.setDefaultLayoutById = function setDefaultLayoutById(id, discard) {
+    if (discard === void 0) {
+      discard = false;
+    }
+
     return this.setLayout(LayoutService.getDefaultViewportLayoutById(id), discard);
-  }
+  };
 
-  resetContent(preserve = false) {
-    const {
-      length
-    } = this[_layout];
-    const oldContent = this[_content];
-    const oldContentLength = oldContent !== null ? oldContent.length : 0;
-    const shouldCopy = preserve && oldContentLength > 0;
-    const newContent = new Array(length);
+  _proto.resetContent = function resetContent(preserve) {
+    if (preserve === void 0) {
+      preserve = false;
+    }
 
-    for (let i = 0; i < length; ++i) {
+    var length = this[_layout].length;
+    var oldContent = this[_content];
+    var oldContentLength = oldContent !== null ? oldContent.length : 0;
+    var shouldCopy = preserve && oldContentLength > 0;
+    var newContent = new Array(length);
+
+    for (var i = 0; i < length; ++i) {
       newContent[i] = shouldCopy && i < oldContentLength ? oldContent[i] : null;
     }
 
     this[_content] = newContent;
     this.setSelected(Math.min(this.selected, length - 1));
-  }
+  };
 
-  setContent(index, data) {
-    const content = this[_content];
+  _proto.setContent = function setContent(index, data) {
+    var content = this[_content];
 
     if (content instanceof Array && (index |= 0) >= 0 && index < content.length) {
-      const oldData = content[index];
+      var oldData = content[index];
       content[index] = data;
       this.publish(LayoutServiceEvents.ContentChanged, index, data, oldData);
     }
-  }
+  };
 
-  getContent(index) {
-    const content = this[_content];
+  _proto.getContent = function getContent(index) {
+    var content = this[_content];
 
     if (content instanceof Array && (index |= 0) >= 0 && index < content.length) {
       return content[index];
     }
 
     return null;
-  }
+  };
 
-  getViewportIndicesWithContent() {
-    const indices = [];
-    const content = this[_content];
+  _proto.getViewportIndicesWithContent = function getViewportIndicesWithContent() {
+    var indices = [];
+    var content = this[_content];
 
     if (content instanceof Array) {
-      const {
-        length
-      } = content;
+      var length = content.length;
 
-      for (let i = 0; i < length; ++i) {
+      for (var i = 0; i < length; ++i) {
         if (content[i] !== null) {
           indices.push(i);
         }
@@ -1431,22 +1579,20 @@ class LayoutService extends PubSub {
     }
 
     return indices;
-  }
+  };
 
-  setSelected(index) {
-    const {
-      length
-    } = this[_layout];
-    const previous = this[_selected];
+  _proto.setSelected = function setSelected(index) {
+    var length = this[_layout].length;
+    var previous = this[_selected];
 
     if ((index |= 0) >= 0 && index < length && index !== previous) {
       this[_selected] = index;
       this.publish(LayoutServiceEvents.SelectionChanged, this[_selected], previous);
     }
-  }
+  };
 
-  static getSharedInstance() {
-    let sharedInstance = LayoutService[_sharedInstance];
+  LayoutService.getSharedInstance = function getSharedInstance() {
+    var sharedInstance = LayoutService[_sharedInstance];
 
     if (!(sharedInstance instanceof LayoutService)) {
       sharedInstance = new LayoutService();
@@ -1454,10 +1600,10 @@ class LayoutService extends PubSub {
     }
 
     return sharedInstance;
-  }
+  };
 
-  static getDefaultViewportLayouts() {
-    let defaultViewportLayouts = LayoutService[_defaultViewportLayouts];
+  LayoutService.getDefaultViewportLayouts = function getDefaultViewportLayouts() {
+    var defaultViewportLayouts = LayoutService[_defaultViewportLayouts];
 
     if (!defaultViewportLayouts) {
       defaultViewportLayouts = Object.freeze([new ViewportGridLayout(1, 1), new ViewportGridLayout(1, 2), new ViewportGridLayout(1, 3), new ViewportGridLayout(2, 1), new ViewportGridLayout(2, 2), new ViewportGridLayout(2, 3), new ViewportGridLayout(3, 3), create3PlaneLayout(new ViewportLayout('3-Plane', '3-plane'))]);
@@ -1465,13 +1611,13 @@ class LayoutService extends PubSub {
     }
 
     return defaultViewportLayouts;
-  }
+  };
 
-  static getDefaultViewportLayoutById(id) {
-    const layouts = LayoutService.getDefaultViewportLayouts();
+  LayoutService.getDefaultViewportLayoutById = function getDefaultViewportLayoutById(id) {
+    var layouts = LayoutService.getDefaultViewportLayouts();
 
-    for (let i = 0; i < layouts.length; ++i) {
-      const layout = layouts[i];
+    for (var i = 0; i < layouts.length; ++i) {
+      var layout = layouts[i];
 
       if (layout.id === id) {
         return layout;
@@ -1479,23 +1625,47 @@ class LayoutService extends PubSub {
     }
 
     return null;
-  }
+  };
 
-}
+  _createClass(LayoutService, [{
+    key: "mode",
+    get: function get() {
+      return this[_mode];
+    }
+  }, {
+    key: "layout",
+    get: function get() {
+      return this[_layout];
+    }
+  }, {
+    key: "selected",
+    get: function get() {
+      return this[_selected];
+    }
+  }]);
+
+  return LayoutService;
+}(PubSub);
+
 LayoutService.Modes = LayoutServiceModes;
 LayoutService.Events = LayoutServiceEvents;
 
-const LayoutSelector = () => {
-  const [selectedLayout, setSelectedLayout] = useState(null);
-  const layoutOptions = LayoutService.getDefaultViewportLayouts();
-  const onClick = useCallback(layout => {
-    const layoutService = LayoutService.getSharedInstance();
+var styles$2 = {"layoutSelector":"_2uJOA","layoutSelectorOptions":"_2FT-X","layoutButton":"_3e-aB"};
+
+var LayoutSelector = function LayoutSelector() {
+  var _useState = useState(null),
+      selectedLayout = _useState[0],
+      setSelectedLayout = _useState[1];
+
+  var layoutOptions = LayoutService.getDefaultViewportLayouts();
+  var onClick = useCallback(function (layout) {
+    var layoutService = LayoutService.getSharedInstance();
     layoutService.setLayout(layout);
   }, []);
-  const options = useMemo(() => {
-    const buttons = [];
+  var options = useMemo(function () {
+    var buttons = [];
 
-    for (let i = 0; i < layoutOptions.length; ++i) {
+    for (var i = 0; i < layoutOptions.length; ++i) {
       buttons.push( /*#__PURE__*/React.createElement(LayoutButton, {
         layout: layoutOptions[i],
         key: i,
@@ -1505,29 +1675,26 @@ const LayoutSelector = () => {
 
     return buttons;
   }, [layoutOptions, onClick]);
-  useEffect(() => {
-    const {
-      LayoutChanged
-    } = LayoutService.Events;
-    const layoutService = LayoutService.getSharedInstance();
+  useEffect(function () {
+    var LayoutChanged = LayoutService.Events.LayoutChanged;
+    var layoutService = LayoutService.getSharedInstance();
     layoutService.subscribe(LayoutChanged, setSelectedLayout);
     setSelectedLayout(layoutService.layout);
-    return () => {
+    return function () {
       layoutService.unsubscribe(LayoutChanged, setSelectedLayout);
     };
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: "layout-selector"
+    className: styles$2.layoutSelector
   }, selectedLayout && /*#__PURE__*/React.createElement(LayoutButton, {
     layout: selectedLayout
   }), options.length > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "layout-selector-options"
+    className: styles$2.layoutSelectorOptions
   }, options));
 };
 
-const ExampleComponent = ({
-  text
-}) => {
+var ExampleComponent = function ExampleComponent(_ref) {
+  var text = _ref.text;
   return /*#__PURE__*/React.createElement("div", {
     className: styles.test
   }, "Example Component: ", text);

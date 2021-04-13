@@ -1,6 +1,6 @@
-.layout-selector {
+.layoutSelector {
   align-items: center;
-  color: yellow;
+  color: darkblue;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -9,21 +9,21 @@
   padding: 6px 6px 0 6px;
 }
 
-.layout-selector .layout-selector-options {
+.layoutSelector .layoutSelectorOptions {
   display: none;
   z-index: 1070;
   position: absolute;
-  top: 62px;
-  background-color: black;
+  top: 60px;
+  background-color: darkslategrey;
   border: 1px solid rgb(177, 179, 179);
   border-radius: 5px;
   padding: 10px;
 }
 
-.layout-selector:hover .layout-selector-options {
+.layoutSelector:hover .layoutSelectorOptions {
   display: flex;
 }
 
-.layout-selector .layout-selector-options .layout-button {
+.layoutSelector .layoutSelectorOptions .layoutButton {
   margin: 0 1px;
 }

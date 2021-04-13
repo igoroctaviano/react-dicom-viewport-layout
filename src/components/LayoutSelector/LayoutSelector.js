@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import LayoutButton from '../LayoutButton'
 import { LayoutService } from '../../services'
 
-import './LayoutSelector.css'
+import styles from './LayoutSelector.module.css'
 
 const LayoutSelector = () => {
   const [selectedLayout, setSelectedLayout] = useState(null)
@@ -35,10 +35,10 @@ const LayoutSelector = () => {
   }, [])
 
   return (
-    <div className='layout-selector'>
+    <div className={styles.layoutSelector}>
       {selectedLayout && <LayoutButton layout={selectedLayout} />}
       {options.length > 0 && (
-        <div className='layout-selector-options'>{options}</div>
+        <div className={styles.layoutSelectorOptions}>{options}</div>
       )}
     </div>
   )

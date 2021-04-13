@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import { ViewportLayout } from '../../classes'
 import { getStyleFromSpatialPosition } from '../../utils'
 
-import './LayoutButton.css'
+import styles from './LayoutButton.module.css'
 
 const LayoutButton = ({ layout, onClick, showLabel, highlightedIndices }) => {
   const onClickHandler = onClick(layout)
@@ -17,8 +17,8 @@ const LayoutButton = ({ layout, onClick, showLabel, highlightedIndices }) => {
       boxes.push(
         <div
           className={classnames(
-            'layout-button-icon-box',
-            highlightedIndices.includes(i) ? 'highlighted' : ''
+            styles.layoutButtonIconBox,
+            highlightedIndices.includes(i) ? styles.highlighted : ''
           )}
           style={getStyleFromSpatialPosition(spatialPosition)}
           key={i}
@@ -28,14 +28,16 @@ const LayoutButton = ({ layout, onClick, showLabel, highlightedIndices }) => {
   }
 
   return (
-    <div className='layout-button' onClick={onClickHandler}>
-      <div className='layout-button-icon'>{boxes}</div>
-      {showLabel && <span className='layout-button-label'>{layout.title}</span>}
+    <div className={styles.layoutButton} onClick={onClickHandler}>
+      <div className={styles.layoutButtonIcon}>{boxes}</div>
+      {showLabel && (
+        <span className={styles.layoutButtonLabel}>{layout.title}</span>
+      )}
     </div>
   )
 }
 
-const noop = () => {};
+const noop = () => {}
 
 LayoutButton.defaultProps = {
   showLabel: true,
